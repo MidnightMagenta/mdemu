@@ -4,6 +4,7 @@
 #include <memory>
 #include <string_view>
 #include <types.h>
+#include <units.h>
 #include <vector>
 
 class BusDevice {
@@ -25,6 +26,9 @@ private:
 };
 
 class cpu_Bus {
+public:
+    static constexpr u16 MAX_ADDR = 0xFFFF;
+
 public:
     cpu_Bus() {}
     ~cpu_Bus() {}

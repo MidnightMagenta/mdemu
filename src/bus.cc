@@ -7,6 +7,7 @@
 void cpu_Bus::connect(u16 base, std::unique_ptr<BusDevice> dev) {
     assert(!m_locked);
     u16 size = dev->size();
+    assert(base + size <= MAX_ADDR + 1);
 
     for (auto &m : m_devices) {
         if (!(base + size <= m.base || base >= m.base + m.size)) {
@@ -33,9 +34,9 @@ void cpu_Bus::disconnect(u16 base) {
 void cpu_Bus::dump_map() const {
     std::cout << "CPU bus device mapping:\n";
     for (const auto &m : m_devices) {
-        std::cout << "\tdev: " << m.dev->id() << '\n';
+        std::cout << "dev: " << m.dev->id() << '\n';
         std::cout << "\tbase: 0x" << std::hex << m.base << '\n';
-        std::cout << "\tsize: 0x" << m.size << std::dec << '\n';
+        std::cout << "\tend:  0x" << m.base + m.size - 1 << std::dec << '\n';
     }
 }
 
